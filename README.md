@@ -2,6 +2,8 @@ Dungeons & Dragons (Demo)
 
 A demo game developed to familiarize with Unity game development:
 
+Unity version is 2021.3.33
+
 Luban is used for the configuration system.
 
 Sound toggle and language switch are stored using PlayerPrefs.
