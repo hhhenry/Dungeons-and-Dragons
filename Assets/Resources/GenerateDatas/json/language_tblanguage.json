@@ -140,9 +140,9 @@
     "en": "Get a"
   },
   {
-    "id": "防御等级+1",
-    "cn": "防御等级+1",
-    "en": "Armor Class +1"
+    "id": "防御等级+",
+    "cn": "防御等级+",
+    "en": "Armor Class +"
   },
   {
     "id": "免疫致命一击",
@@ -150,9 +150,9 @@
     "en": "Immune Critical Hit"
   },
   {
-    "id": "零级命中率+1",
-    "cn": "零级命中率+1",
-    "en": "Thac0 +1"
+    "id": "零级命中率+",
+    "cn": "零级命中率+",
+    "en": "Thac0 +"
   },
   {
     "id": "致命一击点数-1",
@@ -160,23 +160,23 @@
     "en": "Critical Hit Roll -1 (19 or 20)"
   },
   {
-    "id": "生命值+10",
-    "cn": "生命值+10",
-    "en": "Health +10"
+    "id": "生命值+",
+    "cn": "生命值+",
+    "en": "Health +"
   },
   {
-    "id": "每回合额外攻击1次",
-    "cn": "每回合额外攻击1次",
-    "en": "Attack per round +1"
+    "id": "每回合攻击次数: ",
+    "cn": "每回合攻击次数: ",
+    "en": "Attack per round: "
   },
   {
-    "id": "受到伤害-1",
-    "cn": "受到伤害-1",
-    "en": "Damage reduced 1"
+    "id": "受到伤害-",
+    "cn": "受到伤害-",
+    "en": "Damage reduced "
   },
   {
-    "id": "攻击力+1",
-    "cn": "攻击力+1",
-    "en": "Attack +1"
+    "id": "攻击力+",
+    "cn": "攻击力+",
+    "en": "Attack +"
   }
 ]

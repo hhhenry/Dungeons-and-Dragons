@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "盔甲",
-    "description": "防御等级+1",
+    "description": "防御等级+",
     "type": 1,
     "value": 1,
     "icon": "image/armor"
@@ -12,13 +12,13 @@
     "name": "头盔",
     "description": "免疫致命一击",
     "type": 2,
-    "value": 1,
+    "value": 0,
     "icon": "image/helmet"
   },
   {
     "id": 3,
     "name": "手套",
-    "description": "零级命中率+1",
+    "description": "零级命中率+",
     "type": 3,
     "value": 1,
     "icon": "image/gloves"
@@ -28,13 +28,13 @@
     "name": "戒指",
     "description": "致命一击点数-1",
     "type": 4,
-    "value": 1,
+    "value": -1,
     "icon": "image/rings"
   },
   {
     "id": 5,
     "name": "项链",
-    "description": "生命值+10",
+    "description": "生命值+",
     "type": 5,
     "value": 10,
     "icon": "image/necklace"
@@ -42,15 +42,15 @@
   {
     "id": 6,
     "name": "鞋",
-    "description": "每回合额外攻击1次",
+    "description": "每回合攻击次数: ",
     "type": 6,
-    "value": 1,
+    "value": 2,
     "icon": "image/shoes"
   },
   {
     "id": 7,
     "name": "腰带",
-    "description": "受到伤害-1",
+    "description": "受到伤害-",
     "type": 7,
     "value": 1,
     "icon": "image/belt"
@@ -58,9 +58,17 @@
   {
     "id": 8,
     "name": "武器",
-    "description": "攻击力+1",
+    "description": "攻击力+",
     "type": 8,
     "value": 1,
+    "icon": "image/weapons"
+  },
+  {
+    "id": 9,
+    "name": "武器",
+    "description": "攻击力+",
+    "type": 8,
+    "value": 2,
     "icon": "image/weapons"
   }
 ]

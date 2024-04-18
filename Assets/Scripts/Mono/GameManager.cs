@@ -87,36 +87,7 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        foreach(int equipmentId in save.equippedEquipment) {
-            switch(tables.TbEquipment.Get(equipmentId).Type) {
-                case 1: //armor
-                    playerACBonus += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 2: //helmet
-                    immuneCriticalHit = true;
-                    break;
-                case 3: //glove
-                    playerThac0Bonus += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 4: //ring
-                    playerCriticalRoll += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 5: //necklace
-                    playerHPTemp += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 6: //shoes
-                    playerAttackPerRound += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 7: //belt
-                    playerResistance += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                case 8: //weapon
-                    playerAttackBonus += tables.TbEquipment.Get(equipmentId).Value;
-                    break;
-                default: //armor
-                    break;
-            }
-        }
+        EquipmentInit();
 
         player = new Player
         {
@@ -159,6 +130,51 @@ public class GameManager : MonoBehaviour
         language_toggle?.onClick.AddListener(SelectLanguage);
         // 更新界面状态
         UpdateUI();
+    }
+
+    public void EquipmentInit() {
+        foreach(int equipmentId in save.equippedEquipment) {
+            switch(tables.TbEquipment.Get(equipmentId).Type) {
+                case 1: //armor
+                    if(playerACBonus < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerACBonus = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                case 2: //helmet
+                    immuneCriticalHit = true;
+                    break;
+                case 3: //glove
+                    if(playerThac0Bonus < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerThac0Bonus = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                case 4: //ring
+                    playerCriticalRoll = tables.TbEquipment.Get(equipmentId).Value;
+                    break;
+                case 5: //necklace
+                    if(playerHPTemp < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerHPTemp = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                case 6: //shoes
+                    if(playerAttackPerRound < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerAttackPerRound = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                case 7: //belt
+                    if(playerResistance < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerResistance = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                case 8: //weapon
+                    if(playerAttackBonus < tables.TbEquipment.Get(equipmentId).Value) {
+                        playerAttackBonus = tables.TbEquipment.Get(equipmentId).Value;
+                    }
+                    break;
+                default: 
+                    break;
+            }
+        }
     }
 
     public void OnEquipButtonClick() {
@@ -257,7 +273,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < playerAttackPerRound; i++) {
             
             // 玩家攻击怪物逻辑
-            if (playerAttackRoll >= 20 - playerCriticalRoll)
+            if (playerAttackRoll >= 20 + playerCriticalRoll)
             {
                 int damage = player.RollDamage() + player.RollDamage() + playerAttackBonus * 2; // 根据武器和角色属性计算伤害
                 monster.Health -= damage;
@@ -265,7 +281,8 @@ public class GameManager : MonoBehaviour
                 player.LevelUp();
                 save.playerLevel = player.Level;
                 save.SaveByJSON(save);
-                playerLog.Text = $"{GetWord("攻击检定为", language_setting)} {playerAttackRoll} : {GetWord("致命一击 伤害翻倍", language_setting)}\n" + $"{GetWord("造成", language_setting)} {damage + playerAttackBonus} {GetWord("点伤害", language_setting)}";
+                playerLog.Text = $"{GetWord("攻击检定为", language_setting)} {playerAttackRoll} : {GetWord("致命一击 伤害翻倍", language_setting)}\n" + 
+                                 $"{GetWord("造成", language_setting)} {damage + playerAttackBonus} {GetWord("点伤害", language_setting)}";
             }
             else if (playerAttackRoll == 1)
             {
@@ -295,7 +312,7 @@ public class GameManager : MonoBehaviour
         if (monsterAttackRoll == 20 && immuneCriticalHit == false)  
         {
             int damage = monster.RollDamage() + monster.RollDamage(); // 根据武器和角色属性计算伤害
-            player.Health -= Math.Min(damage - playerResistance,0);
+            player.Health -= Math.Max(damage - playerResistance,0);
             monsterLog.Text = $"{GetWord("攻击检定为", language_setting)} {monsterAttackRoll} : {GetWord("致命一击 伤害翻倍", language_setting)}\n" + 
                               $"{GetWord("造成", language_setting)} {damage} - {playerResistance} = {damage - playerResistance} {GetWord("点伤害", language_setting)}";
         }
@@ -306,7 +323,7 @@ public class GameManager : MonoBehaviour
         else if (monsterAttackRoll + monster.Thac0 >= player.ArmorClass + playerACBonus)
         {
             int damage = monster.RollDamage(); // 根据武器和角色属性计算伤害
-            player.Health -= Math.Min(damage - playerResistance,0);
+            player.Health -= Math.Max(damage - playerResistance,0);
             monsterLog.Text = $"{GetWord("攻击检定为", language_setting)} {monsterAttackRoll} + {monster.Thac0} = {monsterAttackRoll + monster.Thac0} : {GetWord("命中", language_setting)}\n" + 
                               $"{GetWord("造成", language_setting)} {damage} - {playerResistance} = {damage - playerResistance} {GetWord("点伤害", language_setting)}";        }
         else
@@ -398,13 +415,19 @@ public class GameManager : MonoBehaviour
                     Id = tables.TbEquipment.Get(rewardId).Id,
                     Name = tables.TbEquipment.Get(rewardId).Name,
                     Description = tables.TbEquipment.Get(rewardId).Description,
+                    Value = tables.TbEquipment.Get(rewardId).Value,
                 };
                 save.Equip(equipment.Id);
                 save.SaveByJSON(save);
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}\n" +
-                                 $"{GetWord("得到了", language_setting)} {GetWord(equipment.Name, language_setting)}\n" +
-                                 $"{GetWord(equipment.Description, language_setting)}";
-
+                                 $"{GetWord("得到了", language_setting)} {GetWord(equipment.Name, language_setting)}\n";
+                if(equipment.Value > 0) {
+                    playerLog.Text += $"{GetWord(equipment.Description, language_setting)} " + equipment.Value;
+                }
+                else {
+                    playerLog.Text += $"{GetWord(equipment.Description, language_setting)}";
+                }
+                EquipmentInit();
             }
             else {
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}";
@@ -418,4 +441,5 @@ public class GameManager : MonoBehaviour
             HandleGameOver(playerLog.Text);
         }
     }
+
 }
