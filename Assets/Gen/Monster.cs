@@ -26,7 +26,7 @@ public sealed partial class Monster : Luban.BeanBase
         { if(!_buf["ac"].IsNumber) { throw new SerializationException(); }  Ac = _buf["ac"]; }
         { if(!_buf["thac0"].IsNumber) { throw new SerializationException(); }  Thac0 = _buf["thac0"]; }
         { if(!_buf["icon"].IsString) { throw new SerializationException(); }  Icon = _buf["icon"]; }
-        { if(!_buf["reward"].IsNumber) { throw new SerializationException(); }  Reward = _buf["reward"]; }
+        { if(!_buf["reward"].IsString) { throw new SerializationException(); }  Reward = _buf["reward"]; }
     }
 
     public static Monster DeserializeMonster(JSONNode _buf)
@@ -73,7 +73,7 @@ public sealed partial class Monster : Luban.BeanBase
     /// <summary>
     /// 对应装备表的id
     /// </summary>
-    public readonly int Reward;
+    public readonly string Reward;
    
     public const int __ID__ = -1393696838;
     public override int GetTypeId() => __ID__;

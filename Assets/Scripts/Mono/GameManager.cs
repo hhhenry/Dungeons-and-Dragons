@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject splash;
     public GameObject equipmentPanel;
+    public GameObject equipmentDetailPanel;
     public Button closeButton;
     public Button closeEquip;
+    public Button closeEquipDetail;
     public Text resultText;
     public Player player;
     public Monster monster;
@@ -57,10 +59,20 @@ public class GameManager : MonoBehaviour
     int playerAttackBonus = 0;
     int playerAttackPerRound = 1;
     int playerResistance = 0;
+    public Image equipIcon;
+    public Text equipDescription;
+    public Button armorBtn;
+    public Button helmetBtn;
+    public Button glovesBtn;
+    public Button ringBtn;
+    public Button necklaceBtn;
+    public Button shoesBtn;
+    public Button beltBtn;
+    public Button weaponBtn;
 
     private void Start()
     {
-        HideGameOverPanel();
+        // HideGameOverPanel();
 
         tables = new cfg.Tables(LoadByteBuf);
         save = new();
@@ -78,16 +90,15 @@ public class GameManager : MonoBehaviour
             if(language_setting == 0) {
                 LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
                 PlayerPrefs.SetInt("language",0);
-                Debug.LogWarning("setting " + language_setting);
             }
             else {
                 LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
                 PlayerPrefs.SetInt("language",1);
-                Debug.LogWarning("setting " + language_setting);
             }
         }
         
         EquipmentInit();
+        EquipButtonInit();
 
         player = new Player
         {
@@ -98,7 +109,6 @@ public class GameManager : MonoBehaviour
             Attack = tables.TbPlayer.Get(save.playerLevel).Attack,
             ArmorClass = tables.TbPlayer.Get(save.playerLevel).Ac,
             Thac0 = tables.TbPlayer.Get(save.playerLevel).Thac0,
-            equippedEquipment = new(),
         };
         
         heroIcon.sprite = Resources.Load<Sprite>(tables.TbPlayer.Get(save.playerLevel).Icon);
@@ -128,48 +138,86 @@ public class GameManager : MonoBehaviour
         attackButton?.onClick.AddListener(OnAttackButtonClick);
         equipButton?.onClick.AddListener(OnEquipButtonClick);
         language_toggle?.onClick.AddListener(SelectLanguage);
+
         // 更新界面状态
         UpdateUI();
+    }
+
+    public void EquipButtonInit () {
+        foreach(int equipmentId in save.equippedEquipment) {
+            switch(tables.TbEquipment.Get(equipmentId).Type) {
+                case 1: //armor
+                    armorBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 2: //helmet
+                    helmetBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 3: //glove
+                    glovesBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 4: //ring
+                    ringBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 5: //necklace
+                    necklaceBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 6: //shoes
+                    shoesBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 7: //belt
+                    beltBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                case 8: //weapon
+                    weaponBtn?.onClick.AddListener(delegate {OnEquipmentClick(equipmentId);});
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void OnEquipmentClick(int equipId) {
+        equipmentDetailPanel.SetActive(true);
+        equipIcon.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(equipId).Icon);
+        if(tables.TbEquipment.Get(equipId).Value > 0) {
+            equipDescription.text = $"{GetWord(tables.TbEquipment.Get(equipId).Description, language_setting)} " + tables.TbEquipment.Get(equipId).Value;
+        }
+        else {
+            equipDescription.text = $"{GetWord(tables.TbEquipment.Get(equipId).Description, language_setting)}";
+        }
+        closeEquipDetail?.onClick.AddListener(OnCloseEquipDetailClick);
+    }
+
+    public void OnCloseEquipDetailClick() {
+        equipmentDetailPanel.SetActive(false);
     }
 
     public void EquipmentInit() {
         foreach(int equipmentId in save.equippedEquipment) {
             switch(tables.TbEquipment.Get(equipmentId).Type) {
                 case 1: //armor
-                    if(playerACBonus < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerACBonus = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerACBonus = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 2: //helmet
                     immuneCriticalHit = true;
                     break;
                 case 3: //glove
-                    if(playerThac0Bonus < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerThac0Bonus = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerThac0Bonus = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 4: //ring
                     playerCriticalRoll = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 5: //necklace
-                    if(playerHPTemp < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerHPTemp = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerHPTemp = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 6: //shoes
-                    if(playerAttackPerRound < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerAttackPerRound = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerAttackPerRound = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 7: //belt
-                    if(playerResistance < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerResistance = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerResistance = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 case 8: //weapon
-                    if(playerAttackBonus < tables.TbEquipment.Get(equipmentId).Value) {
-                        playerAttackBonus = tables.TbEquipment.Get(equipmentId).Value;
-                    }
+                    playerAttackBonus = tables.TbEquipment.Get(equipmentId).Value;
                     break;
                 default: 
                     break;
@@ -202,7 +250,7 @@ public class GameManager : MonoBehaviour
                     belt.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(equipmentId).Icon);
                     break;
                 case 8: //weapon
-                    weapon.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(equipmentId).Icon);
+                    weaponBtn.image.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(equipmentId).Icon);
                     break;
                 default:
                     break;
@@ -402,23 +450,65 @@ public class GameManager : MonoBehaviour
         }
         NextLevel();
     }
+    public int RandomReward() {
+        string[] rewards = tables.TbMonster.Get(save.level).Reward.Split(',');
+        List<int> weights = new();
+        List<int> rewardIds = new();
+
+        for (int i = 0; i < rewards.Length; i ++) {
+            int.TryParse(rewards[i].Split(':')[0], out int Id);
+            rewardIds.Add(Id);
+            int.TryParse(rewards[i].Split(':')[1], out int weight);
+            weights.Add(weight);
+        }
+
+        int weightSum = 0;
+        foreach(int w in weights) {
+            weightSum += w;
+        }
+        
+        int random = UnityEngine.Random.Range(0, weightSum+1);
+        int curRange = 0;
+        for (int j = 0; j < rewardIds.Count; j ++) {
+            curRange += weights[j];
+            if(random < curRange) {
+                int rewardId = rewardIds[j];
+                return rewardId;
+            }
+        }
+        return 0;
+    }
     void CheckHealth()
     {
         // 判断玩家和怪物的健康值是否小于等于0
         if (monster.Health <= 0)
         {
-            
-            if (tables.TbMonster.Get(save.level).Reward != 0) {
-                int rewardId = tables.TbMonster.Get(save.level).Reward;
+            if (!string.IsNullOrEmpty(tables.TbMonster.Get(save.level).Reward)) {
+                
+                int rewardId = RandomReward();
                 equipment = new Equipment
                 {
                     Id = tables.TbEquipment.Get(rewardId).Id,
                     Name = tables.TbEquipment.Get(rewardId).Name,
                     Description = tables.TbEquipment.Get(rewardId).Description,
+                    Type = tables.TbEquipment.Get(rewardId).Type,
                     Value = tables.TbEquipment.Get(rewardId).Value,
                 };
-                save.Equip(equipment.Id);
-                save.SaveByJSON(save);
+
+                if (save.equippedEquipment.Count == 0) {
+                    save.Equip(equipment.Id);
+                    save.SaveByJSON(save);
+                }
+                else {
+                    for(int i = 0; i < save.equippedEquipment.Count; i ++) {
+                        if (equipment.Type == tables.TbEquipment.Get(save.equippedEquipment[i]).Type) {
+                            save.equippedEquipment.Remove(save.equippedEquipment[i]);
+                        }
+                    }
+                    save.Equip(equipment.Id);
+                    save.SaveByJSON(save);
+                }
+
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}\n" +
                                  $"{GetWord("得到了", language_setting)} {GetWord(equipment.Name, language_setting)}\n";
                 if(equipment.Value > 0) {
@@ -428,6 +518,7 @@ public class GameManager : MonoBehaviour
                     playerLog.Text += $"{GetWord(equipment.Description, language_setting)}";
                 }
                 EquipmentInit();
+                EquipButtonInit();
             }
             else {
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}";
@@ -437,7 +528,8 @@ public class GameManager : MonoBehaviour
         }
         else if (player.Health + playerHPTemp <= 0)
         {
-            playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("失败", language_setting)} {GetWord("游戏结束", language_setting)}";
+            playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("失败", language_setting)}\n" + 
+                             $"{GetWord("游戏结束", language_setting)}";
             HandleGameOver(playerLog.Text);
         }
     }

@@ -12,20 +12,6 @@ public class Player
     public int ArmorClass { get; set; }
     public int Thac0 { get; set; }
 
-    public List<Equipment> equippedEquipment { get; set;}
-
-    public void Equip(Equipment newEquipment)
-    {
-        equippedEquipment.Add(newEquipment);
-        // TODO: Apply the bonuses of the new equipment to the player's attributes
-    }
-
-    // Unequip an equipment
-    public void Unequip(Equipment equipment)
-    {
-        equippedEquipment.Remove(equipment);
-        // TODO: Remove the bonuses of the unequipped equipment from the player's attributes
-    }
     public int RollAttack()
     {
         // 模拟投掷20面的骰子

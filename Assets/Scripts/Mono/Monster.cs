@@ -8,6 +8,7 @@ public class Monster
     public string Attack { get; set; }
     public int ArmorClass { get; set; }
     public int Thac0 { get; set; }
+	public string Reward { get; set; }
 
     public int RollAttack()
     {
