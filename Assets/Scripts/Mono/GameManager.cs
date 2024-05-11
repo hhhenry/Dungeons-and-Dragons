@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     public Log monsterLog;
     public ParticleSystem sword;
     public AudioSource slash;
+    public AudioSource dice;
     public Save save;
     public cfg.Tables tables;
     public int language_setting;
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
     public Button shoesBtn;
     public Button beltBtn;
     public Button weaponBtn;
+    public GameObject d20;
 
     private void Start()
     {
@@ -135,12 +137,17 @@ public class GameManager : MonoBehaviour
         };
 
         // 设置按钮点击事件
-        attackButton?.onClick.AddListener(OnAttackButtonClick);
+        attackButton?.onClick.AddListener(D20Show);
         equipButton?.onClick.AddListener(OnEquipButtonClick);
         language_toggle?.onClick.AddListener(SelectLanguage);
 
         // 更新界面状态
         UpdateUI();
+    }
+
+    public void D20Show() {
+        d20.SetActive(true);
+        dice.Play();
     }
 
     public void EquipButtonInit () {
@@ -227,6 +234,7 @@ public class GameManager : MonoBehaviour
 
     public void OnEquipButtonClick() {
         foreach(int equipmentId in save.equippedEquipment) {
+            
             switch(tables.TbEquipment.Get(equipmentId).Type) {
                 case 1: //armor
                     armor.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(equipmentId).Icon);
@@ -315,7 +323,7 @@ public class GameManager : MonoBehaviour
     {
         return JSON.Parse(Resources.Load("GenerateDatas/json/" + file).ToString());
     }
-    private void OnAttackButtonClick()
+    public void OnAttackButtonClick()
     {
         int playerAttackRoll = player.RollAttack();
         for(int i = 0; i < playerAttackPerRound; i++) {
@@ -331,6 +339,8 @@ public class GameManager : MonoBehaviour
                 save.SaveByJSON(save);
                 playerLog.Text = $"{GetWord("攻击检定为", language_setting)} {playerAttackRoll} : {GetWord("致命一击 伤害翻倍", language_setting)}\n" + 
                                  $"{GetWord("造成", language_setting)} {damage + playerAttackBonus} {GetWord("点伤害", language_setting)}";
+                sword.Play();
+                slash.Play();
             }
             else if (playerAttackRoll == 1)
             {
@@ -347,6 +357,8 @@ public class GameManager : MonoBehaviour
                 playerLog.Text = $"{GetWord("攻击检定为", language_setting)} {playerAttackRoll} + {player.Thac0} + {playerThac0Bonus} = {playerAttackRoll + player.Thac0 + playerThac0Bonus} : {GetWord("命中", language_setting)}\n" + 
                                  $"{GetWord("造成", language_setting)} {damage} + {playerAttackBonus} = {damage + playerAttackBonus} {GetWord("点伤害", language_setting)}";
 
+                sword.Play();
+                slash.Play();
             }        
             else
             {
@@ -379,10 +391,12 @@ public class GameManager : MonoBehaviour
             monsterLog.Text = $"{GetWord("攻击检定为", language_setting)} {monsterAttackRoll} + {monster.Thac0} = {monsterAttackRoll + monster.Thac0} :  {GetWord("未命中", language_setting)}";
         }
 
-        sword.Play();
-        slash.Play();
+        // d20.SetActive(true);
+        // sword.Play();
+        // slash.Play();
         CheckHealth();
         UpdateUI();
+        d20.SetActive(false);
     }
 
     public void UpdateUI()
