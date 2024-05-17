@@ -15,6 +15,56 @@
     "en": "Blue Dragon"
   },
   {
+    "id": "绿龙",
+    "cn": "绿龙",
+    "en": "Green Dragon"
+  },
+  {
+    "id": "银龙",
+    "cn": "银龙",
+    "en": "Silver Dragon"
+  },
+  {
+    "id": "棕龙",
+    "cn": "棕龙",
+    "en": "Brown Dragon"
+  },
+  {
+    "id": "黑龙",
+    "cn": "黑龙",
+    "en": "Black Dragon"
+  },
+  {
+    "id": "哥布林",
+    "cn": "哥布林",
+    "en": "Goblin"
+  },
+  {
+    "id": "骷髅",
+    "cn": "骷髅",
+    "en": "Skeleton"
+  },
+  {
+    "id": "狼人",
+    "cn": "狼人",
+    "en": "Werewolf"
+  },
+  {
+    "id": "树人",
+    "cn": "树人",
+    "en": "Treant"
+  },
+  {
+    "id": "牛头人",
+    "cn": "牛头人",
+    "en": "Minotaur"
+  },
+  {
+    "id": "巫妖",
+    "cn": "巫妖",
+    "en": "Lich"
+  },
+  {
     "id": "等级",
     "cn": "等级",
     "en": "Level"

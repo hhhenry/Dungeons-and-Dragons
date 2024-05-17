@@ -8,7 +8,7 @@
     "attack": "1D6",
     "ac": 10,
     "thac0": 0,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 2,
@@ -19,7 +19,7 @@
     "attack": "1D7",
     "ac": 11,
     "thac0": 1,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
     "attack": "1D8",
     "ac": 12,
     "thac0": 2,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "attack": "1D9",
     "ac": 13,
     "thac0": 3,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "attack": "1D10",
     "ac": 14,
     "thac0": 4,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "attack": "1D11",
     "ac": 15,
     "thac0": 5,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 7,
@@ -74,7 +74,7 @@
     "attack": "1D12",
     "ac": 16,
     "thac0": 6,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 8,
@@ -85,7 +85,7 @@
     "attack": "1D13",
     "ac": 17,
     "thac0": 7,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 9,
@@ -96,7 +96,7 @@
     "attack": "1D14",
     "ac": 18,
     "thac0": 8,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 10,
@@ -107,7 +107,7 @@
     "attack": "1D15",
     "ac": 19,
     "thac0": 9,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 11,
@@ -118,7 +118,7 @@
     "attack": "1D16",
     "ac": 20,
     "thac0": 10,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 12,
@@ -129,7 +129,7 @@
     "attack": "1D17",
     "ac": 21,
     "thac0": 11,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 13,
@@ -140,7 +140,7 @@
     "attack": "1D18",
     "ac": 22,
     "thac0": 12,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 14,
@@ -151,7 +151,7 @@
     "attack": "1D19",
     "ac": 23,
     "thac0": 13,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 15,
@@ -162,7 +162,7 @@
     "attack": "1D20",
     "ac": 24,
     "thac0": 14,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 16,
@@ -173,7 +173,7 @@
     "attack": "1D21",
     "ac": 25,
     "thac0": 15,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 17,
@@ -184,7 +184,7 @@
     "attack": "1D22",
     "ac": 26,
     "thac0": 16,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 18,
@@ -195,7 +195,7 @@
     "attack": "1D23",
     "ac": 27,
     "thac0": 17,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 19,
@@ -206,7 +206,7 @@
     "attack": "1D24",
     "ac": 28,
     "thac0": 18,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 20,
@@ -217,7 +217,7 @@
     "attack": "1D25",
     "ac": 29,
     "thac0": 19,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 21,
@@ -228,7 +228,7 @@
     "attack": "1D26",
     "ac": 30,
     "thac0": 20,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 22,
@@ -239,7 +239,7 @@
     "attack": "1D27",
     "ac": 31,
     "thac0": 21,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 23,
@@ -250,7 +250,7 @@
     "attack": "1D28",
     "ac": 32,
     "thac0": 22,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 24,
@@ -261,7 +261,7 @@
     "attack": "1D29",
     "ac": 33,
     "thac0": 23,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 25,
@@ -272,7 +272,7 @@
     "attack": "1D30",
     "ac": 34,
     "thac0": 24,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 26,
@@ -283,7 +283,7 @@
     "attack": "1D31",
     "ac": 35,
     "thac0": 25,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 27,
@@ -294,7 +294,7 @@
     "attack": "1D32",
     "ac": 36,
     "thac0": 26,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 28,
@@ -305,7 +305,7 @@
     "attack": "1D33",
     "ac": 37,
     "thac0": 27,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 29,
@@ -316,7 +316,7 @@
     "attack": "1D34",
     "ac": 38,
     "thac0": 28,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 30,
@@ -327,7 +327,7 @@
     "attack": "1D35",
     "ac": 39,
     "thac0": 29,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 31,
@@ -338,7 +338,7 @@
     "attack": "1D36",
     "ac": 40,
     "thac0": 30,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 32,
@@ -349,7 +349,7 @@
     "attack": "1D37",
     "ac": 41,
     "thac0": 31,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 33,
@@ -360,7 +360,7 @@
     "attack": "1D38",
     "ac": 42,
     "thac0": 32,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 34,
@@ -371,7 +371,7 @@
     "attack": "1D39",
     "ac": 43,
     "thac0": 33,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   },
   {
     "id": 35,
@@ -382,6 +382,6 @@
     "attack": "1D40",
     "ac": 44,
     "thac0": 34,
-    "icon": "image/hero"
+    "icon": "image/fighter"
   }
 ]
