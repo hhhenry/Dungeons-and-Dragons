@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     public Button beltBtn;
     public Button weaponBtn;
     public GameObject d20;
+    public Image rewardIcon;
 
     private void Start()
     {
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
         };
 
         // 设置按钮点击事件
-        attackButton?.onClick.AddListener(D20Show);
+        attackButton?.onClick.AddListener(DiceShow);
         equipButton?.onClick.AddListener(OnEquipButtonClick);
         language_toggle?.onClick.AddListener(SelectLanguage);
 
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void D20Show() {
+    public void DiceShow() {
         d20.SetActive(true);
         dice.Play();
     }
@@ -324,7 +325,7 @@ public class GameManager : MonoBehaviour
         return JSON.Parse(Resources.Load("GenerateDatas/json/" + file).ToString());
     }
     public void OnAttackButtonClick()
-    {
+    {        
         int playerAttackRoll = player.RollAttack();
         for(int i = 0; i < playerAttackPerRound; i++) {
             
@@ -391,12 +392,12 @@ public class GameManager : MonoBehaviour
             monsterLog.Text = $"{GetWord("攻击检定为", language_setting)} {monsterAttackRoll} + {monster.Thac0} = {monsterAttackRoll + monster.Thac0} :  {GetWord("未命中", language_setting)}";
         }
 
-        // d20.SetActive(true);
         // sword.Play();
         // slash.Play();
         CheckHealth();
         UpdateUI();
-        d20.SetActive(false);
+        // d20.SetActive(true);
+        // dice.Play();
     }
 
     public void UpdateUI()
@@ -492,7 +493,7 @@ public class GameManager : MonoBehaviour
         }
         return 0;
     }
-    void CheckHealth()
+    public void CheckHealth()
     {
         // 判断玩家和怪物的健康值是否小于等于0
         if (monster.Health <= 0)
@@ -500,6 +501,7 @@ public class GameManager : MonoBehaviour
             if (!string.IsNullOrEmpty(tables.TbMonster.Get(save.level).Reward)) {
                 
                 int rewardId = RandomReward();
+                rewardIcon.sprite = Resources.Load<Sprite>(tables.TbEquipment.Get(rewardId).Icon);
                 equipment = new Equipment
                 {
                     Id = tables.TbEquipment.Get(rewardId).Id,
@@ -522,7 +524,6 @@ public class GameManager : MonoBehaviour
                     save.Equip(equipment.Id);
                     save.SaveByJSON(save);
                 }
-
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}\n" +
                                  $"{GetWord("得到了", language_setting)} {GetWord(equipment.Name, language_setting)}\n";
                 if(equipment.Value > 0) {
@@ -533,6 +534,7 @@ public class GameManager : MonoBehaviour
                 }
                 EquipmentInit();
                 EquipButtonInit();
+                
             }
             else {
                 playerLog.Text = $"{GetWord(player.Name, language_setting)} {GetWord("胜利", language_setting)}";
@@ -547,5 +549,4 @@ public class GameManager : MonoBehaviour
             HandleGameOver(playerLog.Text);
         }
     }
-
 }

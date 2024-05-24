@@ -313,10 +313,17 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1
+  - time: 0.98333335
     functionName: OnAttackButtonClick
     data: 
-    objectReferenceParameter: {fileID: 919132149155446097, guid: 9d710cca1258ffc46b19a55dded42d11, type: 3}
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: D20False
+    data: 
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
